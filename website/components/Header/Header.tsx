@@ -45,33 +45,46 @@ export default function MainHeader() {
                   Home
                 </Link>
               </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/" className="px-4 py-2 hover:text-primary">
+                  ABOUT
+                </Link>
+              </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>About</NavigationMenuTrigger>
+                <NavigationMenuTrigger>TREATMENT</NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-48 p-4">
                     <li className="hover:bg-muted px-2 py-1 rounded-md">
-                      <Link href="/about/mission">Our Mission</Link>
+                      <Link href="/about/mission">COSMETIC DENTISTRY</Link>
                     </li>
                     <li className="hover:bg-muted px-2 py-1 rounded-md">
-                      <Link href="/about/team">Our Team</Link>
+                      <Link href="/about/team">ROOT CANAL TREATMENT</Link>
+                    </li>
+                    <li className="hover:bg-muted px-2 py-1 rounded-md">
+                      <Link href="/about/team">DENTAL IMLANT</Link>
+                    </li>
+                    <li className="hover:bg-muted px-2 py-1 rounded-md">
+                      <Link href="/about/team">FULL MOUTH REHABILITATION</Link>
                     </li>
                   </ul>
                 </NavigationMenuContent>
               </NavigationMenuItem>
 
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Services</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-48 p-4">
-                    <li className="hover:bg-muted px-2 py-1 rounded-md">
-                      <Link href="/services/medical">Medical Services</Link>
-                    </li>
-                    <li className="hover:bg-muted px-2 py-1 rounded-md">
-                      <Link href="/services/emergency">Emergency Care</Link>
-                    </li>
-                  </ul>
-                </NavigationMenuContent>
+                <Link href="/" className="px-4 py-2 hover:text-primary">
+                  CONTACT
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/" className="px-4 py-2 hover:text-primary">
+                  BLOG
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <Link href="/" className="px-4 py-2 hover:text-primary">
+                  BOOK APPOINTMENT
+                </Link>
               </NavigationMenuItem>
 
               {/* Add other navigation items similarly */}
