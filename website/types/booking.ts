@@ -10,7 +10,8 @@ export interface DentalService {
   export interface TimeSlot {
     start: string
     end: string
-    available: boolean
+    available: number
+    period: "Morning" | "Afternoon"
   }
   
   export interface BookingFormData {
