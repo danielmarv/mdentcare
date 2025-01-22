@@ -21,7 +21,7 @@ const treatments = [
   { title: "COSMETIC DENTISTRY", href: "/treatments/cosmetic-dentistry" },
   { title: "ROOT CANAL TREATMENT", href: "/treatments/root-canal" },
   { title: "DENTAL IMPLANT", href: "/treatments/dental-implant" },
-  { title: "FULL MOUTH REHABILITATION", href: "/treatments/full-mouth-rehabilitation" },
+  { title: "FULL MOUTH REHABILITATION", href: "/full-mouth-rehabilitation" },
 ]
 
 export default function MainHeader() {
@@ -58,7 +58,7 @@ export default function MainHeader() {
         <div className="flex items-center justify-between">
           <Link href="/" className="relative z-10">
             <Image
-              src={logo || "/placeholder.svg"}
+              src={logo}
               alt="Logo"
               width={150}
               height={60}

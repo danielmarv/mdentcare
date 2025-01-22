@@ -50,7 +50,7 @@ export default function HeroSlider() {
   }
 
   return (
-    <div className="relative h-[500px] lg:h-[600px] overflow-hidden group">
+    <div className="relative h-[850px] lg:h-[600px] overflow-hidden group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentSlide}

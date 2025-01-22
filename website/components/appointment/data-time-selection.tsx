@@ -32,8 +32,8 @@ export function DateTimeSelection({ formData, setFormData, onNext, onBack }: Dat
           <Calendar
             mode="single"
             selected={formData.date || undefined}
-            onSelect={(date: Date) => setFormData({ ...formData, date: date || null })}
-            // onSelect={(date) => setFormData({ ...formData, date: date || null })}
+            // onSelect={(date: Date) => setFormData({ ...formData, date: date || null })}
+            onSelect={(date) => setFormData({ ...formData, date: date || null })}
             className="rounded-md border"
           />
         </div>
