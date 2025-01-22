@@ -4,7 +4,7 @@ import Link from "next/link"
 
 export default function TopBar() {
   return (
-    <div className="hidden md:flex w-full bg-white text-sm py-2 px-4 border-b">
+    <div className="md:hidden w-full bg-white text-sm py-2 px-4 border-b">
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
