@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { slides, stats } from "./data"
 import { Counter } from "./Counter"
+import Link from "next/link"
 
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -49,7 +50,7 @@ export default function HeroSlider() {
   }
 
   return (
-    <div className="relative h-[600px] overflow-hidden group">
+    <div className="relative h-[500px] lg:h-[600px] overflow-hidden group">
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={currentSlide}
@@ -98,9 +99,11 @@ export default function HeroSlider() {
                 transition={{ delay: 0.6, duration: 0.8 }}
                 className="flex flex-wrap gap-4"
               >
-                <button className="px-6 py-3 text-lg font-medium bg-white text-primary hover:bg-white/90 rounded-lg transition-colors duration-300">
-                  Get Appointment
-                </button>
+                <Link href="/book-appointment">
+                  <button className="px-6 py-3 text-lg font-medium bg-white text-primary hover:bg-white/90 rounded-lg transition-colors duration-300">
+                    Get Appointment
+                  </button>
+                </Link>
                 <button className="px-6 py-3 text-lg font-medium text-white border border-white hover:bg-white/20 rounded-lg transition-colors duration-300">
                   Learn More
                 </button>
