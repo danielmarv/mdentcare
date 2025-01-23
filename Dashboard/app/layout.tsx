@@ -12,7 +12,7 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "MDental",
+  title: "M-Dental",
   description:
     "The best dental clinic in Uganda. We provide quality dental services at an affordable price.",
   icons: {
