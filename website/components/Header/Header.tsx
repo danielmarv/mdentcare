@@ -15,11 +15,11 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import logo from "../../public/images/log.png"
+import logo from "../../public/images/logg.jpg"
 
 const treatments = [
   { title: "COSMETIC DENTISTRY", href: "/treatments/cosmetic-dentistry" },
-  { title: "ROOT CANAL TREATMENT", href: "/treatments/root-canal" },
+  { title: "ROOT CANAL TREATMENT", href: "/root-canal-treatment" },
   { title: "DENTAL IMPLANT", href: "/treatments/dental-implant" },
   { title: "FULL MOUTH REHABILITATION", href: "/full-mouth-rehabilitation" },
 ]
