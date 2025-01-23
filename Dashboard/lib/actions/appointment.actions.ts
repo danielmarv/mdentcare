@@ -11,7 +11,6 @@ import {
 } from "../appwrite.config";
 import { formatDateTime, parseStringify } from "../utils";
 
-import { getPatient } from "./patient.actions";
 
 import { Appointment } from "@/types/appwrite.types";
 
@@ -119,16 +118,6 @@ export const sendSMSNotification = async (userId: string, content: string) => {
 
 export const sendEmailNotifircation = async (userId: string, content: string, subject: string) => {
   try {
-    const user =  await getPatient(userId);
-    console.log(user);
-    console.log("Sending email with the following parameters:", {
-      userId,
-      content,
-      subject,
-      email: user.email,
-      topics: [],
-    });
-
     const message = await messaging.createEmail(
       ID.unique(),
       subject,
