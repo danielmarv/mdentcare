@@ -1,2 +1,2 @@
-# Troy Legacy Care
-Welcome to my legacycare app
+# M Dental Clinic
+Welcome to the m dental clinic dashboard

@@ -13,19 +13,21 @@ const Home = ({ searchParams }: SearchParamProps) => {
 
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[496px]">
-          <Image
+          {/* <Image
             src="/assets/icons/logo-full.svg"
             height={1000}
             width={1000}
             alt="patient"
             className="mb-12 h-10 w-fit"
-          />
-
+          /> */}
+          <h1 className="mb-10 text-4xl font-bold md:text-5xl lg:text-6xl">
+            M-Dental Clinic
+          </h1>
           <PatientForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
-            <p className="justify-items-end text-dark-600 xl:text-left">
-              © 2024 LegacyCare
+            <p className="text-dark-600 justify-items-end xl:text-left">
+              © 2025 Mdental
             </p>
             <Link href="/?admin=true" className="text-green-500">
               Admin

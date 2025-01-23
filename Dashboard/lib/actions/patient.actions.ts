@@ -59,7 +59,6 @@ export const registerPatient = async ({
   ...patient
 }: RegisterUserParams) => {
   try {
-    // Upload file ->  // https://appwrite.io/docs/references/cloud/client-web/storage#createFile
     let file;
     if (identificationDocument) {
       const inputFile =
@@ -72,7 +71,6 @@ export const registerPatient = async ({
       file = await storage.createFile(BUCKET_ID!, ID.unique(), inputFile);
     }
 
-    // Create new patient document -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#createDocument
     const newPatient = await databases.createDocument(
       DATABASE_ID!,
       PATIENT_COLLECTION_ID!,

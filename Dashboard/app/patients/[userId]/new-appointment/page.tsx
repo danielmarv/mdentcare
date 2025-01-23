@@ -13,13 +13,16 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
     <div className="flex h-screen max-h-screen">
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-[860px] flex-1 justify-between">
-          <Image
+          {/* <Image
             src="/assets/icons/logo-full.svg"
             height={1000}
             width={1000}
             alt="logo"
             className="mb-12 h-10 w-fit"
-          />
+          /> */}
+          <h1 className="mb-10 text-4xl font-bold md:text-5xl lg:text-6xl">
+            M-Dental Clinic
+          </h1>
 
           <AppointmentForm
             patientId={patient?.$id}
@@ -27,7 +30,7 @@ const Appointment = async ({ params: { userId } }: SearchParamProps) => {
             type="create"
           />
 
-          <p className="copyright mt-10 py-12">© 2024 LegacyCare</p>
+          <p className="copyright mt-10 py-12">© 2025 Mdental</p>
         </div>
       </section>
 
