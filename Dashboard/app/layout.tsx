@@ -12,9 +12,9 @@ const fontSans = FontSans({
 });
 
 export const metadata: Metadata = {
-  title: "LegacyCare",
+  title: "MDental",
   description:
-    "A healthcare patient management System designed to streamline patient registration, appointment scheduling, and medical records management for healthcare providers.",
+    "The best dental clinic in Uganda. We provide quality dental services at an affordable price.",
   icons: {
     icon: "/assets/icons/logo-icon.svg",
   },
