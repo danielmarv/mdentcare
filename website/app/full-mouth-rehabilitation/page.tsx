@@ -1,6 +1,5 @@
 import ContactButton from "@/components/rehabilitation/contact-button";
 import TreatmentsSidebar from "@/components/rehabilitation/treatments-sidebar";
-import image from "../../public/images/doct.jpg"
 import Image from "next/image";
 
 
@@ -11,9 +10,11 @@ export default function FullMouthRehabilitation() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             <Image
-              src={image}
+              src='/images/doct.jpg'
               alt="Dental procedure being performed"
               className="w-full rounded-lg"
+              width={800}
+              height={500}
             />
             <h2 className="text-3xl font-bold">Full Mouth Reconstruction</h2>
             <p className="text-gray-600">
