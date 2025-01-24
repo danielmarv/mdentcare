@@ -11,6 +11,7 @@ import {
 } from "../appwrite.config";
 import { formatDateTime, parseStringify } from "../utils";
 
+
 import { Appointment } from "@/types/appwrite.types";
 
 //  CREATE APPOINTMENT
@@ -115,6 +116,27 @@ export const sendSMSNotification = async (userId: string, content: string) => {
   }
 };
 
+export const sendEmailNotifircation = async (userId: string, content: string, subject: string) => {
+  try {
+    const message = await messaging.createEmail(
+      ID.unique(),
+      subject,
+      content,
+      ['appointment_updates'],
+      [userId],
+      [],
+      [],
+      [],
+      [],
+      false,
+      true,
+    );
+    return parseStringify(message);
+  } catch (error) {
+    console.error("An error occurred while sending email:", error);
+  }
+}
+
 //  UPDATE APPOINTMENT
 export const updateAppointment = async ({
   appointmentId,
@@ -132,8 +154,15 @@ export const updateAppointment = async ({
 
     if (!updatedAppointment) throw Error;
 
-    const smsMessage = `Greetings from M-dental Clinic. ${type === "schedule" ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}` : `We regret to inform that your appointment for ${formatDateTime(appointment.schedule!).dateTime} is cancelled. Reason:  ${appointment.cancellationReason}`}.`;
+    const smsMessage = `Greetings from M-dental Clinic. 
+      ${type === "schedule"
+      ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}` 
+      :`We regret to inform that your appointment for ${formatDateTime(appointment.schedule!).dateTime} is cancelled.
+      Reason:  ${appointment.cancellationReason}`
+      }.
+    `;
     await sendSMSNotification(userId, smsMessage);
+    await sendEmailNotifircation(userId, smsMessage, type === "schedule" ? "Appointment Confirmation" : "Appointment Cancellation");
 
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
