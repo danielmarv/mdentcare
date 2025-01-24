@@ -20,7 +20,7 @@ import logo from "../../public/images/logg.jpg"
 const treatments = [
   { title: "COSMETIC DENTISTRY", href: "/treatments/cosmetic-dentistry" },
   { title: "ROOT CANAL TREATMENT", href: "/root-canal-treatment" },
-  { title: "DENTAL IMPLANT", href: "/treatments/dental-implant" },
+  { title: "DENTAL IMPLANT", href: "/dental-care" },
   { title: "FULL MOUTH REHABILITATION", href: "/full-mouth-rehabilitation" },
 ]
 
