@@ -15,8 +15,10 @@ export default async function sendEmail(Email: any) {
       const data = await response.json();
       if (response.ok) {
         console.log(data.message);
+        return { success: true, message: data.message }
       } else {
         console.log(`Error: ${data.message}`);
+        return { success: false, message: data.message }; // Return error response
       }
     } catch (error) {
       console.error('An error occurred while sending the email.');
