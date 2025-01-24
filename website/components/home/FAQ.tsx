@@ -28,7 +28,7 @@ export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState<number | null>(0)
 
   return (
-    <div className="grid lg:grid-cols-2 gap-8 items-start p-6 md:p-8 lg:p-12 bg-indigo-900 text-white rounded-2xl">
+    <div className="grid lg:grid-cols-2 gap-8 items-start p-6 md:p-8 lg:p-12 bg-blue-400 text-white rounded-2xl">
       <div className="space-y-6">
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">Frequently Asked Questions</h2>
         <div className="space-y-4">

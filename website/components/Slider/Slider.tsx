@@ -68,14 +68,15 @@ export default function HeroSlider() {
         >
           <div className="relative h-full">
             <Image
-              src={slides[currentSlide].image || "/placeholder.svg"}
+              src={slides[currentSlide].image}
               alt={slides[currentSlide].title}
               fill
               className="object-cover"
               priority
             />
           </div>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm">
+          {/* <div className="absolute inset-0 bg-black/40 backdrop-blur-sm"> */}
+          <div className="absolute">
             <div className="container mx-auto h-full flex flex-col justify-center px-4">
               <motion.h1
                 initial={{ opacity: 0, y: 20 }}
