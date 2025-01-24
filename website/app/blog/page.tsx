@@ -1,7 +1,6 @@
 import { BlogPostCard } from "@/components/blog/blog-post-card";
 import { Hero } from "@/components/blog/hero";
 import { LatestNews } from "@/components/blog/latest-news";
-import { Newsletter } from "@/components/blog/newsletter";
 
 
 
@@ -39,7 +38,6 @@ export default function BlogPage() {
           </div>
         </div>
       </div>
-      <Newsletter />
     </div>
   )
 }
