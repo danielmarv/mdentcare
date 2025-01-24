@@ -8,12 +8,21 @@ import sendEmail from "@/lib/email"
 
 export function Newsletter() {
         const[formData,setformData] = useState({email: ""})
+        const[notification,setnotification] = useState(false)
         const { email } = formData
         const handleSubmit = async (e: React.FormEvent) => {
                 e.preventDefault()
                 // Handle form submission
                 const { email } = formData
-                sendEmail(email)
+                const response = await sendEmail(email)
+                if (response && response.success) {
+                        setnotification(true)
+                        setTimeout(() => {
+                                setnotification(false)
+                                }, 5000);
+                        } else {
+                                alert("Error sending email")
+                                }
                 setformData({
                     email: "",
                   })
@@ -27,6 +36,7 @@ export function Newsletter() {
       viewport={{ once: true }}
     >
       <div className="container mx-auto px-4 text-center">
+        <div className="-mt-10">{ notification?(<h1 className="text-green-500">Thanks for Subscribing to Our News Letter check your email for confirmation</h1>):(<h1></h1>)}</div>
         <motion.h2
           className="text-3xl font-bold mb-2"
           initial={{ y: 20, opacity: 0 }}
