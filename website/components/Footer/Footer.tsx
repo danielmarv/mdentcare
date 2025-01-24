@@ -1,144 +1,147 @@
 import Link from "next/link"
-import { Facebook, Twitter, Youtube, Mail, Phone, MapPin } from "lucide-react"
+import Image from "next/image"
+import { Facebook, Twitter } from "lucide-react"
+import logo from "../../public/images/logg.jpg"
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white">
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div>
-            <h3 className="text-xl font-semibold mb-4">About Us</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/mandate" className="hover:text-primary transition-colors">
-                  Our Mandate
-                </Link>
-              </li>
-              <li>
-                <Link href="/governance" className="hover:text-primary transition-colors">
-                  Governance
-                </Link>
-              </li>
-              <li>
-                <Link href="/management" className="hover:text-primary transition-colors">
-                  Management
-                </Link>
-              </li>
-              <li>
-                <Link href="/location" className="hover:text-primary transition-colors">
-                  Location & contacts
-                </Link>
-              </li>
-            </ul>
+    <footer className="bg-[#2B3B75] text-white py-12">
+      <div className="container px-4 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+          {/* Logo Section */}
+          <div className="flex flex-col items-start gap-4">
+            <Image
+              src={logo}
+              alt="mdental Logo"
+              width={150}
+              height={60}
+              className="bg-white p-2 rounded-full"
+            />
+            <p className="text-sm">Excellence in M-Dental care since 1994</p>
           </div>
 
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Our Network</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/hospitals" className="hover:text-primary transition-colors">
-                  Hospitals
-                </Link>
-              </li>
-              <li>
-                <Link href="/offices" className="hover:text-primary transition-colors">
-                  Diocesan Health Offices
-                </Link>
-              </li>
-              <li>
-                <Link href="/centre-2" className="hover:text-primary transition-colors">
-                  Health Centre II
-                </Link>
-              </li>
-              <li>
-                <Link href="/centre-3" className="hover:text-primary transition-colors">
-                  Health Centre III
-                </Link>
-              </li>
-              <li>
-                <Link href="/centre-4" className="hover:text-primary transition-colors">
-                  Health Centre IV
-                </Link>
-              </li>
-              <li>
-                <Link href="/training" className="hover:text-primary transition-colors">
-                  Training Schools
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/covid" className="hover:text-primary transition-colors">
-                  COVID-19 Resources
-                </Link>
-              </li>
-              <li>
-                <Link href="/webmail" className="hover:text-primary transition-colors">
-                  UCMB Webmail
-                </Link>
-              </li>
-              <li>
-                <Link href="/hris" className="hover:text-primary transition-colors">
-                  HRIS
-                </Link>
-              </li>
-              <li>
-                <Link href="/hmis" className="hover:text-primary transition-colors">
-                  HMIS
-                </Link>
-              </li>
-              <li>
-                <Link href="/elearning" className="hover:text-primary transition-colors">
-                  E-learning/CPD system
-                </Link>
-              </li>
-              <li>
-                <Link href="/jobs" className="hover:text-primary transition-colors">
-                  Job Opportunities
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-xl font-semibold mb-4">Contacts</h3>
-            <address className="not-italic space-y-4">
-              <p>Uganda Episcopal Conference</p>
-              <p>Uganda Catholic Medical Bureau</p>
-              <p className="flex items-start gap-2">
-                <MapPin className="h-5 w-5 mt-1 flex-shrink-0" />
-                <span>672 Hanlon road, P. O. Box 2886, Kampala-Uganda</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <Phone className="h-5 w-5 flex-shrink-0" />
-                <span>+256 312 266 590 / +256 414 269 705</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <Mail className="h-5 w-5 flex-shrink-0" />
-                <span>admin@ucmb.co.ug</span>
-              </p>
-              <div className="flex gap-4 mt-4">
-                <Link href="#" className="hover:text-primary transition-colors">
-                  <Twitter className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  <Facebook className="h-6 w-6" />
-                </Link>
-                <Link href="#" className="hover:text-primary transition-colors">
-                  <Youtube className="h-6 w-6" />
-                </Link>
+          {/* About Us Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold uppercase">About Us</h3>
+            <div className="space-y-2 text-sm">
+              <p>Since 1994, we have provided patients with the finest dental health treatments in Uganda.</p>
+              <div className="space-y-1">
+                <p>Address: Plot 13 Wampewo Avenue.</p>
+                <p>P. O. Box 23015 Kampala, Uganda</p>
               </div>
-            </address>
+              <div>
+                <p>Phone: +256 414 344 647 /</p>
+                <p>0707909090 / 0392713613 /</p>
+                <p>0326100230</p>
+              </div>
+              <p>Email: admin@jubileedentalclinic.com</p>
+            </div>
+          </div>
+
+          {/* Quick Links Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold uppercase">Quick Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/about">About Us</Link>
+              </li>
+              <li>
+                <Link href="/courses">CPD Courses</Link>
+              </li>
+              <li>
+                <Link href="/appointments">Make Appointments</Link>
+              </li>
+              <li>
+                <Link href="/lab">Jubilee Dental Lab</Link>
+              </li>
+              <li>
+                <Link href="/faq">FAQ</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Services Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold uppercase">Our Services</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/services/orthodontics">Orthodontics</Link>
+              </li>
+              <li>
+                <Link href="/services/oral-surgery">Oral Surgery</Link>
+              </li>
+              <li>
+                <Link href="/services/cosmetic-dentistry">Cosmetic Dentistry</Link>
+              </li>
+              <li>
+                <Link href="/services/teeth-whitening">Teeth Whitening</Link>
+              </li>
+              <li>
+                <Link href="/services/periodontal">Periodontal Treatment</Link>
+              </li>
+              <li>
+                <Link href="/services/crown">Dental Crown</Link>
+              </li>
+              <li>
+                <Link href="/services/cbct">3D CBCT Scan</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Opening Hours Section */}
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold uppercase">Opening Hours</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span>Monday</span>
+                <span>8:30am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Tuesday</span>
+                <span>7:30am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Wednesday</span>
+                <span>7:30am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Thursday</span>
+                <span>9:00am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Friday</span>
+                <span>7:30am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Saturday</span>
+                <span>7:30am – 5:00pm</span>
+              </div>
+              <div className="flex justify-between">
+                <span>Sunday</span>
+                <span>Closed</span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="border-t border-gray-800">
-        <div className="container mx-auto py-4 px-4 text-sm text-gray-400 text-center">
-          ©2025 Uganda Catholic Medical Bureau - All Rights Reserved
+
+        {/* Bottom Section */}
+        <div className="mt-8 pt-8 border-t border-white/20">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm">
+              Copyright © {new Date().getFullYear()} M-Dental Clinic, All Rights Reserved. Developed By Brand
+              Bu Media Company
+            </p>
+            <div className="flex gap-4">
+              <Link href="https://facebook.com" className="hover:text-blue-400">
+                <Facebook className="w-6 h-6" />
+                <span className="sr-only">Facebook</span>
+              </Link>
+              <Link href="https://twitter.com" className="hover:text-blue-400">
+                <Twitter className="w-6 h-6" />
+                <span className="sr-only">Twitter</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
