@@ -11,7 +11,6 @@ import {
 } from "../appwrite.config";
 import { formatDateTime, parseStringify } from "../utils";
 
-
 import { Appointment } from "@/types/appwrite.types";
 
 //  CREATE APPOINTMENT
@@ -116,26 +115,30 @@ export const sendSMSNotification = async (userId: string, content: string) => {
   }
 };
 
-export const sendEmailNotifircation = async (userId: string, content: string, subject: string) => {
+export const sendEmailNotifircation = async (
+  userId: string,
+  content: string,
+  subject: string
+) => {
   try {
     const message = await messaging.createEmail(
       ID.unique(),
       subject,
       content,
-      ['appointment_updates'],
+      ["appointment_updates"],
       [userId],
       [],
       [],
       [],
       [],
       false,
-      true,
+      true
     );
     return parseStringify(message);
   } catch (error) {
     console.error("An error occurred while sending email:", error);
   }
-}
+};
 
 //  UPDATE APPOINTMENT
 export const updateAppointment = async ({
@@ -154,15 +157,37 @@ export const updateAppointment = async ({
 
     if (!updatedAppointment) throw Error;
 
-    const smsMessage = `Greetings from M-dental Clinic. 
-      ${type === "schedule"
-      ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}` 
-      :`We regret to inform that your appointment for ${formatDateTime(appointment.schedule!).dateTime} is cancelled.
-      Reason:  ${appointment.cancellationReason}`
-      }.
+    const smsMessage = `
+      <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
+       
+        <h2 style="color: #444;">Greetings from M-Dental Clinic,</h2>
+        <p>${
+          type === "schedule"
+            ? `We are pleased to inform you that your appointment is confirmed for <strong>${formatDateTime(appointment.schedule!).dateTime}</strong> with Dr. <strong>${appointment.primaryPhysician}</strong>.`
+            : `We regret to inform you that your appointment for <strong>${formatDateTime(appointment.schedule!).dateTime}</strong> has been cancelled.`
+        }</p>
+        ${
+          type === "cancel"
+            ? `<p><strong>Reason for cancellation:</strong> ${appointment.cancellationReason}</p>`
+            : ""
+        }
+        <p>Thank you for choosing M-Dental Clinic. If you have any questions or need further assistance, please don't hesitate to contact us.</p>
+        <p style="margin-top: 20px;">
+          Best regards,<br />
+          <strong>M-Dental Clinic Team</strong><br />
+          <a href="https://mdentalclinic.com" style="color: #0066cc; text-decoration: none;">www.mdentalclinic.com</a>
+        </p>
+      </div>
     `;
+
     await sendSMSNotification(userId, smsMessage);
-    await sendEmailNotifircation(userId, smsMessage, type === "schedule" ? "Appointment Confirmation" : "Appointment Cancellation");
+    await sendEmailNotifircation(
+      userId,
+      smsMessage,
+      type === "schedule"
+        ? "Appointment Confirmation"
+        : "Appointment Cancellation"
+    );
 
     revalidatePath("/admin");
     return parseStringify(updatedAppointment);
