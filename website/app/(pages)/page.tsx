@@ -3,6 +3,7 @@ import Doctors from '@/components/home/Doctors';
 import FAQ from '@/components/home/FAQ';
 import Services from '@/components/home/Services';
 import Welcome from '@/components/home/Welcome';
+import { Newsletter } from '@/components/news-letter/newsletter';
 import HeroSlider from '@/components/Slider/Slider';
 import React from 'react'
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Welcome />
       <Services />
       <Doctors />
+      <Newsletter />
       <FAQ />
     </div>
   );

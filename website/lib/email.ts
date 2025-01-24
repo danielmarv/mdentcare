@@ -1,6 +1,4 @@
-export default function EmailSender(fromEmail: any,subject: any,message: any) {
-
-  const sendEmail = async () => {
+export default async function sendEmail(Email: any) {
     try {
       const response = await fetch('/send-email', {
         method: 'POST',
@@ -8,9 +6,9 @@ export default function EmailSender(fromEmail: any,subject: any,message: any) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          to: 'eliatranquil@gmail.com',
-          subject: subject,
-          text:  ` This Message is from ${fromEmail}  \n  ${message}`
+          to: Email,
+          subject: "Thank you for Subscribing to our Newsletter",
+          text:  "We are Glad to Have you Become part of Our Community at MDENTCARE \n You will Continuously receive updates on our latest news and offers. \n Unsubscribe anytime",
         }),
       });
 
@@ -25,5 +23,4 @@ export default function EmailSender(fromEmail: any,subject: any,message: any) {
       console.error(error);
     }
   };
-  sendEmail()
-}
+

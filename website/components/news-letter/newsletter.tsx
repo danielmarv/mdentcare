@@ -3,11 +3,25 @@
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { useState } from "react"
+import sendEmail from "@/lib/email"
 
 export function Newsletter() {
+        const[formData,setformData] = useState({email: ""})
+        const { email } = formData
+        const handleSubmit = async (e: React.FormEvent) => {
+                e.preventDefault()
+                // Handle form submission
+                const { email } = formData
+                sendEmail(email)
+                setformData({
+                    email: "",
+                  })
+                console.log("Form submitted:", formData)
+              }
   return (
     <motion.div
-      className="bg-[#2E2B7C] text-white py-16"
+      className="bg-gradient-to-r from-green-900  to-blue-900 text-white py-16 -mb-5 mx-10 rounded-3xl"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
@@ -20,7 +34,7 @@ export function Newsletter() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          Subscribe everything you know for teeth
+          Subscribe to our News Letter to stay updated with us
         </motion.h2>
         <motion.p
           className="text-sm text-gray-300 mb-8"
@@ -29,7 +43,7 @@ export function Newsletter() {
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          *Terms and condition apply
+          You'll Receive an email from us every week
         </motion.p>
         <motion.div
           className="max-w-md mx-auto flex gap-4"
@@ -38,12 +52,17 @@ export function Newsletter() {
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
         >
-          <Input
+        <form className="flex gap-5 " onSubmit={handleSubmit}>
+                <Input
             type="email"
             placeholder="Enter your email"
-            className="bg-white/10 border-white/20 text-white placeholder:text-gray-400"
+            value={formData.email}
+            onChange={(e) => setformData({ ...formData, email: e.target.value })}
+            className="bg-white/10 border-white/20  text-white placeholder:text-gray-400"
           />
-          <Button variant="secondary">Subscribe</Button>
+          <Button type="submit"  variant="secondary">Subscribe</Button>
+        </form>
+          
         </motion.div>
       </div>
     </motion.div>
