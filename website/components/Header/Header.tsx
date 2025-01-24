@@ -25,11 +25,11 @@ const treatments = [
 ]
 
 const cosmetics = [
-  { title: "CROWNS & BRIDGES", href: "/treatments/cosmetic-dentistry" },
-  { title: "BRACES", href: "/root-canal-treatment" },
-  { title: "DENTAL DENTURES", href: "/dental-care" },
-  { title: "TEETH CLEANING", href: "/full-mouth-rehabilitation" },
-  { title: "INSTANT TEETH WHITENING", href: "/full-mouth-rehabilitationing" },
+  { title: "CROWNS & BRIDGES", href: "/crowns-bridges" },
+  { title: "BRACES", href: "/braces" },
+  { title: "DENTAL DENTURES", href: "/dental-dentures" },
+  { title: "TEETH CLEANING", href: "/teeth-cleaning" },
+  { title: "INSTANT TEETH WHITENING", href: "/instant-teeth" },
 ]
 
 const locations = [
