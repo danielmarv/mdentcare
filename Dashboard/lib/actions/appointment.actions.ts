@@ -119,14 +119,23 @@ export const sendEmailNotifircation = async (
 //  UPDATE APPOINTMENT
 export const updateAppointment = async ({ appointmentId, userId, appointment, type }: UpdateAppointmentParams) => {
   try {
+    // Create a new object with only the fields Appwrite expects
+    const updatedFields = {
+      status: appointment.status,
+      schedule: appointment.schedule,
+      primaryPhysician: appointment.primaryPhysician,
+      cancellationReason: appointment.cancellationReason,
+      // Add any other fields that are part of your Appwrite collection schema
+    }
+
     const updatedAppointment = await databases.updateDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       appointmentId,
-      appointment,
+      updatedFields,
     )
 
-    if (!updatedAppointment) throw Error
+    if (!updatedAppointment) throw new Error("Failed to update appointment")
 
     const smsMessage = `
       <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
@@ -163,6 +172,7 @@ export const updateAppointment = async ({ appointmentId, userId, appointment, ty
     return parseStringify(updatedAppointment)
   } catch (error) {
     console.error("An error occurred while updating an appointment:", error)
+    throw error // Re-throw the error so it can be handled by the calling function
   }
 }
 

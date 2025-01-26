@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
 import { AppointmentModal } from "../AppointmentModal";
+import { CompleteAppointmentModal } from "../CompleteAppointmentModal";
 import { StatusBadge } from "../StatusBadge";
 
 import { Doctors } from "@/constants";
@@ -97,6 +98,13 @@ export const columns: ColumnDef<Appointment>[] = [
             type="cancel"
             title="Cancel Appointment"
             description="Are you sure you want to cancel your appointment?"
+          />
+          <CompleteAppointmentModal
+            patientId={appointment.patient.$id}
+            userId={appointment.userId}
+            appointment={appointment}
+            title="Complete Appointment"
+            description="Are you sure you want to mark this appointment as completed?"
           />
         </div>
       );
