@@ -38,7 +38,7 @@ export function Newsletter() {
       <div className="container mx-auto px-4 text-center">
         <div className="-mt-10">{ notification?(<h1 className="text-green-500">Thanks for Subscribing to Our News Letter check your email for confirmation</h1>):(<h1></h1>)}</div>
         <motion.h2
-          className="text-3xl font-bold mb-2"
+          className="md-text-3xl font-bold mb-2 "
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
