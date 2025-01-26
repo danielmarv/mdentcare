@@ -11,7 +11,6 @@ import {
 } from "../appwrite.config";
 import { formatDateTime, parseStringify } from "../utils";
 
-
 import { Appointment } from "@/types/appwrite.types";
 
 //  CREATE APPOINTMENT
@@ -36,70 +35,46 @@ export const createAppointment = async (
 //  GET RECENT APPOINTMENTS
 export const getRecentAppointmentList = async () => {
   try {
-    const appointments = await databases.listDocuments(
-      DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
-      [Query.orderDesc("$createdAt")]
-    );
-
-    // const scheduledAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "scheduled");
-
-    // const pendingAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "pending");
-
-    // const cancelledAppointments = (
-    //   appointments.documents as Appointment[]
-    // ).filter((appointment) => appointment.status === "cancelled");
-
-    // const data = {
-    //   totalCount: appointments.total,
-    //   scheduledCount: scheduledAppointments.length,
-    //   pendingCount: pendingAppointments.length,
-    //   cancelledCount: cancelledAppointments.length,
-    //   documents: appointments.documents,
-    // };
+    const appointments = await databases.listDocuments(DATABASE_ID!, APPOINTMENT_COLLECTION_ID!, [
+      Query.orderDesc("$createdAt"),
+    ])
 
     const initialCounts = {
       scheduledCount: 0,
       pendingCount: 0,
       cancelledCount: 0,
-    };
+      completedCount: 0,
+    }
 
-    const counts = (appointments.documents as Appointment[]).reduce(
-      (acc, appointment) => {
-        switch (appointment.status) {
-          case "scheduled":
-            acc.scheduledCount++;
-            break;
-          case "pending":
-            acc.pendingCount++;
-            break;
-          case "cancelled":
-            acc.cancelledCount++;
-            break;
-        }
-        return acc;
-      },
-      initialCounts
-    );
+    const counts = (appointments.documents as Appointment[]).reduce((acc, appointment) => {
+      switch (appointment.status) {
+        case "scheduled":
+          acc.scheduledCount++
+          break
+        case "pending":
+          acc.pendingCount++
+          break
+        case "cancelled":
+          acc.cancelledCount++
+          break
+        case "completed":
+          acc.completedCount++
+          break
+      }
+      return acc
+    }, initialCounts)
 
     const data = {
       totalCount: appointments.total,
       ...counts,
       documents: appointments.documents,
-    };
+    }
 
-    return parseStringify(data);
+    return parseStringify(data)
   } catch (error) {
-    console.error(
-      "An error occurred while retrieving the recent appointments:",
-      error
-    );
+    console.error("An error occurred while retrieving the recent appointments:", error)
   }
-};
+}
 
 //  SEND SMS NOTIFICATION
 export const sendSMSNotification = async (userId: string, content: string) => {
@@ -116,60 +91,90 @@ export const sendSMSNotification = async (userId: string, content: string) => {
   }
 };
 
-export const sendEmailNotifircation = async (userId: string, content: string, subject: string) => {
+export const sendEmailNotifircation = async (
+  userId: string,
+  content: string,
+  subject: string
+) => {
   try {
     const message = await messaging.createEmail(
       ID.unique(),
       subject,
       content,
-      ['appointment_updates'],
+      ["appointment_updates"],
       [userId],
       [],
       [],
       [],
       [],
       false,
-      true,
+      true
     );
     return parseStringify(message);
   } catch (error) {
     console.error("An error occurred while sending email:", error);
   }
-}
+};
 
 //  UPDATE APPOINTMENT
-export const updateAppointment = async ({
-  appointmentId,
-  userId,
-  appointment,
-  type,
-}: UpdateAppointmentParams) => {
+export const updateAppointment = async ({ appointmentId, userId, appointment, type }: UpdateAppointmentParams) => {
   try {
+    // Create a new object with only the fields Appwrite expects
+    const updatedFields = {
+      status: appointment.status,
+      schedule: appointment.schedule,
+      primaryPhysician: appointment.primaryPhysician,
+      cancellationReason: appointment.cancellationReason,
+      // Add any other fields that are part of your Appwrite collection schema
+    }
+
     const updatedAppointment = await databases.updateDocument(
       DATABASE_ID!,
       APPOINTMENT_COLLECTION_ID!,
       appointmentId,
-      appointment
-    );
+      updatedFields,
+    )
 
-    if (!updatedAppointment) throw Error;
+    if (!updatedAppointment) throw new Error("Failed to update appointment")
 
-    const smsMessage = `Greetings from M-dental Clinic. 
-      ${type === "schedule"
-      ? `Your appointment is confirmed for ${formatDateTime(appointment.schedule!).dateTime} with Dr. ${appointment.primaryPhysician}` 
-      :`We regret to inform that your appointment for ${formatDateTime(appointment.schedule!).dateTime} is cancelled.
-      Reason:  ${appointment.cancellationReason}`
-      }.
-    `;
-    await sendSMSNotification(userId, smsMessage);
-    await sendEmailNotifircation(userId, smsMessage, type === "schedule" ? "Appointment Confirmation" : "Appointment Cancellation");
+    const smsMessage = `
+      <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.5;">
+        <h2 style="color: #444;">Greetings from M-Dental Clinic,</h2>
+        <p>${
+          type === "schedule"
+            ? `We are pleased to inform you that your appointment is confirmed for <strong>${formatDateTime(appointment.schedule!).dateTime}</strong> with Dr. <strong>${appointment.primaryPhysician}</strong>.`
+            : type === "cancel"
+              ? `We regret to inform you that your appointment for <strong>${formatDateTime(appointment.schedule!).dateTime}</strong> has been cancelled.`
+              : `We are pleased to inform you that your appointment on <strong>${formatDateTime(appointment.schedule!).dateTime}</strong> with Dr. <strong>${appointment.primaryPhysician}</strong> has been completed.`
+        }</p>
+        ${type === "cancel" ? `<p><strong>Reason for cancellation:</strong> ${appointment.cancellationReason}</p>` : ""}
+        <p>Thank you for choosing M-Dental Clinic. If you have any questions or need further assistance, please don't hesitate to contact us.</p>
+        <p style="margin-top: 20px;">
+          Best regards,<br />
+          <strong>M-Dental Clinic Team</strong><br />
+          <a href="https://mdentalclinic.com" style="color: #0066cc; text-decoration: none;">www.mdentalclinic.com</a>
+        </p>
+      </div>
+    `
 
-    revalidatePath("/admin");
-    return parseStringify(updatedAppointment);
+    await sendSMSNotification(userId, smsMessage)
+    await sendEmailNotifircation(
+      userId,
+      smsMessage,
+      type === "schedule"
+        ? "Appointment Confirmation"
+        : type === "cancel"
+          ? "Appointment Cancellation"
+          : "Appointment Completed",
+    )
+
+    revalidatePath("/admin")
+    return parseStringify(updatedAppointment)
   } catch (error) {
-    console.error("An error occurred while scheduling an appointment:", error);
+    console.error("An error occurred while updating an appointment:", error)
+    throw error // Re-throw the error so it can be handled by the calling function
   }
-};
+}
 
 // GET APPOINTMENT
 export const getAppointment = async (appointmentId: string) => {
