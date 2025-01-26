@@ -281,7 +281,7 @@ export const updateAppointment = async ({ appointmentId, userId, appointment, ty
     return parseStringify(updatedAppointment)
   } catch (error) {
     console.error("An error occurred while updating an appointment:", error)
-    throw error // Re-throw the error so it can be handled by the calling function
+    throw error
   }
 }
 
