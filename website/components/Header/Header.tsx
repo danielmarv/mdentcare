@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, Search } from "lucide-react"
+import { Menu, Search, Phone, Mail, MapPin, ChevronDown } from "lucide-react"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,19 +14,34 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { cn } from "@/lib/utils"
 import logo from "../../public/images/logg.jpg"
 
 const treatments = [
-  { title: "COSMETIC DENTISTRY", href: "/treatments/cosmetic-dentistry" },
   { title: "ROOT CANAL TREATMENT", href: "/root-canal-treatment" },
-  { title: "DENTAL IMPLANT", href: "/treatments/dental-implant" },
+  { title: "DENTAL IMPLANT", href: "/dental-care" },
   { title: "FULL MOUTH REHABILITATION", href: "/full-mouth-rehabilitation" },
+]
+
+const cosmetics = [
+  { title: "CROWNS & BRIDGES", href: "/crowns-bridges" },
+  { title: "BRACES", href: "/braces" },
+  { title: "DENTAL DENTURES", href: "/dental-dentures" },
+  { title: "TEETH CLEANING", href: "/teeth-cleaning" },
+  { title: "INSTANT TEETH WHITENING", href: "/instant-teeth" },
+]
+
+const locations = [
+  { title: "Equatoria Mall", address: "Shop No4, Kampala, Uganda" },
+  { title: "Ntinda Branch", address: "Opposite Kampala Hospital" },
+  { title: "Bwaise Branch", address: "Next to Former Turskys" },
 ]
 
 export default function MainHeader() {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [activeLocation, setActiveLocation] = useState(locations[0])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,10 +58,32 @@ export default function MainHeader() {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-6">
-              <span>Equatoria Mall Shop No4, Kampala, Uganda.</span>
-              <span>info@identalcare.ug</span>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="flex items-center space-x-2 hover:text-blue-200">
+                  <MapPin className="h-4 w-4" />
+                  <span>{activeLocation.title}</span>
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {locations.map((location) => (
+                    <DropdownMenuItem
+                      key={location.title}
+                      onClick={() => setActiveLocation(location)}
+                      className="flex flex-col items-start"
+                    >
+                      <span className="font-medium">{location.title}</span>
+                      <span className="text-xs text-muted-foreground">{location.address}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+              <div className="flex items-center space-x-2">
+                <Mail className="h-4 w-4" />
+                <span>info@identalcare.ug</span>
+              </div>
             </div>
-            <div>
+            <div className="flex items-center space-x-2">
+              <Phone className="h-4 w-4" />
               <span>+256 701 999907</span>
             </div>
           </div>
@@ -101,6 +138,24 @@ export default function MainHeader() {
                 </NavigationMenuItem>
 
                 <NavigationMenuItem>
+                  <NavigationMenuTrigger className="text-sm font-medium">COSMETIC DENTISTRY</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="w-64 p-4 bg-white rounded-lg shadow-lg ">
+                      {cosmetics.map((cosmetic) => (
+                        <li key={cosmetic.href}>
+                          <Link
+                            href={cosmetic.href}
+                            className="block px-4 py-2 text-sm hover:bg-muted rounded-md transition-colors"
+                          >
+                            {cosmetic.title}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+
+                <NavigationMenuItem>
                   <Link href="/contact" className="px-4 py-2 text-sm font-medium hover:text-primary transition-colors">
                     CONTACT
                   </Link>
@@ -135,6 +190,28 @@ export default function MainHeader() {
                   <SheetTitle className="text-left">Menu</SheetTitle>
                 </SheetHeader>
                 <div className="mt-6 space-y-4">
+                  <div className="px-4 pb-4 border-b">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger className="flex items-center space-x-2">
+                        <MapPin className="h-4 w-4" />
+                        <span>{activeLocation.title}</span>
+                        <ChevronDown className="h-4 w-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {locations.map((location) => (
+                          <DropdownMenuItem
+                            key={location.title}
+                            onClick={() => setActiveLocation(location)}
+                            className="flex flex-col items-start"
+                          >
+                            <span className="font-medium">{location.title}</span>
+                            <span className="text-xs text-muted-foreground">{location.address}</span>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+
                   <Link
                     href="/"
                     className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-md"
@@ -170,6 +247,26 @@ export default function MainHeader() {
                     </AccordionItem>
                   </Accordion>
 
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="cosmetics">
+                      <AccordionTrigger className="px-4 text-sm font-medium">COSMETIC DENTISTRY</AccordionTrigger>
+                      <AccordionContent>
+                        <div className="space-y-2 ml-4">
+                          {cosmetics.map((cosmetic) => (
+                            <Link
+                              key={cosmetic.href}
+                              href={cosmetic.href}
+                              className="block px-4 py-2 text-sm hover:bg-muted rounded-md"
+                              onClick={() => setIsMobileMenuOpen(false)}
+                            >
+                              {cosmetic.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+
                   <Link
                     href="/contact"
                     className="block px-4 py-2 text-sm font-medium hover:bg-muted rounded-md"
@@ -196,9 +293,18 @@ export default function MainHeader() {
                   <div className="px-4 pt-6 space-y-4">
                     <div className="space-y-2 text-sm">
                       <h3 className="font-semibold">Contact Info</h3>
-                      <p>Equatoria Mall Shop No4, Kampala, Uganda.</p>
-                      <p>info@identalcare.ug</p>
-                      <p>+256 701 999907</p>
+                      <div className="flex items-center space-x-2">
+                        <MapPin className="h-4 w-4" />
+                        <p>{activeLocation.address}</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Mail className="h-4 w-4" />
+                        <p>info@identalcare.ug</p>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Phone className="h-4 w-4" />
+                        <p>+256 701 999907</p>
+                      </div>
                     </div>
                   </div>
                 </div>
