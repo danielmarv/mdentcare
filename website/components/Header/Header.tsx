@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Menu, Search, Phone, Mail, MapPin, ChevronDown } from "lucide-react"
+import { Menu, Search, Phone, Mail, MapPin, ChevronDown} from "lucide-react"
+import { FaWhatsapp } from "react-icons/fa6";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -79,12 +80,32 @@ export default function MainHeader() {
               </DropdownMenu>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span>info@identalcare.ug</span>
+                <span>
+                <a href="mailto:semike70@gmail.com" style={{ textDecoration: 'none', color: 'inherit' }}>
+                semike70@gmail.com
+                </a>
+                </span>
               </div>
             </div>
             <div className="flex items-center space-x-2">
-              <Phone className="h-4 w-4" />
-              <span>+256 701 999907</span>
+                <div className="flex gap-2">
+                <FaWhatsapp className="h-4 w-4" />
+              <span>
+                <a href="tel:+256757093701" style={{ textDecoration: 'none', color: 'inherit' }}>
+                +256757093701
+                </a>
+                </span>
+                </div>
+
+                <div className="flex gap-2">
+                {/* <FaWhatsapp className="h-4 w-4" /> */}
+              <span>
+                <a href="tel:+256757093701" style={{ textDecoration: 'none', color: 'inherit' }}>
+                +256707889805
+                </a>
+                </span>
+                </div>
+             
             </div>
           </div>
         </div>
