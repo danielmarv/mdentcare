@@ -1,7 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Twitter } from "lucide-react"
 import logo from "../../public/images/logg.jpg"
+import { AiOutlineYoutube,AiOutlineTikTok,AiOutlineWhatsApp } from "react-icons/ai";
 
 export default function Footer() {
   return (
@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="container px-4 mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Logo Section */}
-          <div className="flex flex-col items-start gap-4">
+          <div className="flex flex-col items-center gap-4">
             <Image
               src={logo}
               alt="mdental Logo"
@@ -17,7 +17,7 @@ export default function Footer() {
               height={60}
               className="bg-white p-2 rounded-full"
             />
-            <p className="text-sm">Excellence in M-Dental care since 1994</p>
+            <p className="text-xl font-bold">Matugga dental care</p>
           </div>
 
           {/* About Us Section */}
@@ -29,12 +29,27 @@ export default function Footer() {
                 <p>Address: Plot 13 Wampewo Avenue.</p>
                 <p>P. O. Box 23015 Kampala, Uganda</p>
               </div>
-              <div>
-                <p>Phone: +256 414 344 647 /</p>
-                <p>0707909090 / 0392713613 /</p>
-                <p>0326100230</p>
+              <div className="flex  gap-2">
+                <div className="flex ">
+                <h1 className="font-bold">Phone:</h1>
+                </div>
+
+                <div className=" flex flex-col">
+                <p>  <a href="tel:+256757093701" style={{ textDecoration: 'none', color: 'inherit' }}>
+                +256757093701
+                </a> </p>
+                <p> <a href="tel:+256778315503" style={{ textDecoration: 'none', color: 'inherit' }}>
+                +256778315503
+                </a></p>
+                <p> <a href="tel:+256707889805" style={{ textDecoration: 'none', color: 'inherit' }}>
+                +256707889805
+                </a></p>
+                </div>
+               
               </div>
-              <p>Email: admin@jubileedentalclinic.com</p>
+              <p>Email:  <a href="mailto:semike70@gmail.com" style={{ textDecoration: 'none', color: 'inherit' }}>
+                semike70@gmail.com
+                </a></p>
             </div>
           </div>
 
@@ -128,17 +143,23 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-white/20">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm">
-              Copyright © {new Date().getFullYear()} M-Dental Clinic, All Rights Reserved. Developed By Brand
+              Copyright © {new Date().getFullYear()} Matugga dental care, All Rights Reserved. Developed By Brand
               Bu Media Company
             </p>
             <div className="flex gap-4">
-              <Link href="https://facebook.com" className="hover:text-blue-400">
-                <Facebook className="w-6 h-6" />
-                <span className="sr-only">Facebook</span>
+                {/* WhatsApp */}
+              <Link href="tel:+256757093701" className="hover:text-blue-400">
+                <AiOutlineWhatsApp className="w-8 h-8" />
               </Link>
-              <Link href="https://twitter.com" className="hover:text-blue-400">
-                <Twitter className="w-6 h-6" />
-                <span className="sr-only">Twitter</span>
+
+              {/* TIK TOK */}
+              <Link href="https://www.tiktok.com/@matuggadentalcare1?_t=ZM-8tPSF1ORlX4&_r=1" className="  hover:text-blue-400">
+                <AiOutlineTikTok className="w-8 h-8" />
+              </Link>
+
+        {/* YOU TUBE */}
+              <Link href="https://youtube.com/@drmikedentist1?si=rdZKJRfmmLVXTrIF" className="hover:text-blue-400"> 
+                <AiOutlineYoutube className=" w-8 h-8" />
               </Link>
             </div>
           </div>
