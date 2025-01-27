@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { AppointmentForm } from "./forms/AppointmentForm";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -13,8 +15,6 @@ import {
 } from "@/components/ui/dialog";
 import { Appointment } from "@/types/appwrite.types";
 
-import { AppointmentForm } from "./forms/AppointmentForm";
-
 import "react-datepicker/dist/react-datepicker.css";
 
 export const AppointmentModal = ({
@@ -22,6 +22,7 @@ export const AppointmentModal = ({
   userId,
   appointment,
   type,
+  disabled,
 }: {
   patientId: string;
   userId: string;
@@ -29,15 +30,17 @@ export const AppointmentModal = ({
   type: "schedule" | "cancel";
   title: string;
   description: string;
+  disabled?: boolean;
 }) => {
   const [open, setOpen] = useState(false);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild disabled={disabled}>
         <Button
           variant="ghost"
           className={`capitalize ${type === "schedule" && "text-green-500"}`}
+          disabled={disabled}
         >
           {type}
         </Button>

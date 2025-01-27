@@ -55,6 +55,12 @@ const AdminPage = async () => {
             label="Cancelled appointments"
             icon={"/assets/icons/cancelled.svg"}
           />
+          <StatCard
+          type="completed"
+          count={appointments.completedCount}
+          label="Completed appointments"
+          icon={"/assets/icons/appointments.svg"}
+        />
         </section>
 
         <DataTable columns={columns} data={appointments.documents} />
