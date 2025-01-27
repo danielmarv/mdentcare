@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 require('dotenv').config();
 export async function POST(request) {
   const body = await request.json();
-  const { to, subject, text } = body;
+  const { to, subject, html } = body;
 
   try {
     const transporter = nodemailer.createTransport({
@@ -20,7 +20,7 @@ export async function POST(request) {
       from:"eliaakjtrnq@gmail.com",
       to,
       subject,
-      text,
+      html,
     };
 
     const info = await transporter.sendMail(mailOptions);

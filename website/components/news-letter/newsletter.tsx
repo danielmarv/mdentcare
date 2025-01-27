@@ -17,15 +17,6 @@ export function Newsletter() {
                 const { email } = formData
                 const Res = await CreateEmail(email)
                 if (Res?.success) {
-                        seterror(true)
-                        setTimeout(() => {
-                                seterror(false)
-                                }, 5000);
-                                setformData({
-                                        email: "",
-                                        })
-                
-                }else{
                         const response = await sendEmail(email)
                         if (response && response.success) {
                                 setnotification(true)
@@ -38,10 +29,16 @@ export function Newsletter() {
                         setformData({
                         email: "",
                         })
-                       
-                }
                 
-                  
+                }else{
+                        seterror(true)
+                        setTimeout(() => {
+                                seterror(false)
+                                }, 5000);
+                                setformData({
+                                        email: "",
+                                        })      
+                }
                 console.log("Form submitted:", formData)
                 
               }
