@@ -10,28 +10,43 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 
-export const CreateEmail = async (email:string) => {
-
-        const existing = await databases.listDocuments(
-                appwriteconfig.databaseId,
-                appwriteconfig.news_letter_collection_id,
-                [Query.equal("Email", [email])],
-        )
-
-        
-        const create_email =  databases.createDocument(
-                appwriteconfig.databaseId,
-                appwriteconfig.news_letter_collection_id,
-                ID.unique(),
-                {"Email":email},
-        )
-        if (existing.total > 0) {
-                return { success: true, };
-                // throw Error("Email already exists")
-                
-        } else{
-                create_email
-                return { success: false, };
+export const CreateEmail = async (email: string) => {
+        try {
+          const existing = await databases.listDocuments(
+            appwriteconfig.databaseId,
+            appwriteconfig.news_letter_collection_id,
+            [Query.equal('Email', [email])]
+          );
+      
+          if (!existing.documents.length) {
+            await databases.createDocument(
+              appwriteconfig.databaseId,
+              appwriteconfig.news_letter_collection_id,
+              ID.unique(),
+              { "Email": email }
+            );
+            return { success: true, message: 'Email successfully added.' };
+          } else {
+            return { success: false, message: 'Email already exists.' };
+          }
+        } catch (error) {
+          console.error('Error creating email:', error);
+          return { success: false, message: 'An error occurred while adding the email.' };
         }
-        
-}
+      };
+
+      export const DeleteDocument = async(id:string)=>{
+        try {
+                const document = databases.deleteDocument(
+                        appwriteconfig.databaseId,
+                        appwriteconfig.news_letter_collection_id,
+                        id
+                      );
+                  return document;
+                } catch (error) {
+                        console.error('Error deleting document:', error);
+                        return { success: false, message: 'An error occurred while deleting the document.' };
+                        }
+                
+      }
+      
