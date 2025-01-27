@@ -3,12 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 
+import { AppointmentModal } from "../AppointmentModal";
+import { CompleteAppointmentModal } from "../CompleteAppointmentModal";
+import { StatusBadge } from "../StatusBadge";
+
 import { Doctors } from "@/constants";
 import { formatDateTime } from "@/lib/utils";
 import { Appointment } from "@/types/appwrite.types";
 
-import { AppointmentModal } from "../AppointmentModal";
-import { StatusBadge } from "../StatusBadge";
 
 export const columns: ColumnDef<Appointment>[] = [
   {
@@ -78,6 +80,7 @@ export const columns: ColumnDef<Appointment>[] = [
     header: () => <div className="pl-4">Actions</div>,
     cell: ({ row }) => {
       const appointment = row.original;
+      const isCompleted = appointment.status === "completed"
 
       return (
         <div className="flex gap-1">
@@ -88,6 +91,7 @@ export const columns: ColumnDef<Appointment>[] = [
             type="schedule"
             title="Schedule Appointment"
             description="Please confirm the following details to schedule."
+            disabled={isCompleted}
           />
           <AppointmentModal
             patientId={appointment.patient.$id}
@@ -96,6 +100,14 @@ export const columns: ColumnDef<Appointment>[] = [
             type="cancel"
             title="Cancel Appointment"
             description="Are you sure you want to cancel your appointment?"
+            disabled={isCompleted}
+          />
+          <CompleteAppointmentModal
+            patientId={appointment.patient.$id}
+            userId={appointment.userId}
+            appointment={appointment}
+            title="Complete Appointment"
+            description="Are you sure you want to mark this appointment as completed?"
           />
         </div>
       );

@@ -14,7 +14,6 @@ import {
 } from "../appwrite.config";
 import { parseStringify } from "../utils";
 
-// CREATE APPWRITE USER
 export const createUser = async (user: CreateUserParams) => {
   try {
     const newuser = await users.create(
