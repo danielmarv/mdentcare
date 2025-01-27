@@ -5,28 +5,45 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import sendEmail from "@/lib/email"
+import { CreateEmail } from "@/lib/utils"
 
 export function Newsletter() {
         const[formData,setformData] = useState({email: ""})
         const[notification,setnotification] = useState(false)
-        const { email } = formData
+        const [error, seterror ] = useState(false)
         const handleSubmit = async (e: React.FormEvent) => {
                 e.preventDefault()
                 // Handle form submission
                 const { email } = formData
-                const response = await sendEmail(email)
-                if (response && response.success) {
-                        setnotification(true)
+                const Res = await CreateEmail(email)
+                if (Res?.success) {
+                        seterror(true)
                         setTimeout(() => {
-                                setnotification(false)
+                                seterror(false)
                                 }, 5000);
-                        } else {
+                                setformData({
+                                        email: "",
+                                        })
+                
+                }else{
+                        const response = await sendEmail(email)
+                        if (response && response.success) {
+                                setnotification(true)
+                                setTimeout(() => {
+                                        setnotification(false)
+                                        }, 5000);
+                                } else {
                                 alert("Error sending email")
                                 }
-                setformData({
-                    email: "",
-                  })
+                        setformData({
+                        email: "",
+                        })
+                       
+                }
+                
+                  
                 console.log("Form submitted:", formData)
+                
               }
   return (
     <motion.div
@@ -36,9 +53,9 @@ export function Newsletter() {
       viewport={{ once: true }}
     >
       <div className="container mx-auto px-4 text-center">
-        <div className="-mt-10">{ notification?(<h1 className="text-green-500">Thanks for Subscribing to Our News Letter check your email for confirmation</h1>):(<h1></h1>)}</div>
+        <div className="-mt-10">{ notification?(<h1 className="text-green-500">Thanks for Subscribing to Our News Letter check your email for confirmation</h1>):(<h1></h1>)}{error?(<h1 className="text-red-500 text-2xl font-bold">Email Already Exists</h1>):(<h1></h1>)}</div>
         <motion.h2
-          className="text-3xl font-bold mb-2"
+          className="md-text-3xl font-bold mb-2 "
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true }}
